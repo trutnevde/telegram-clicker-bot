@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Рыбный Кликер</title>
+  <meta charset="UTF-8">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: #f0f8ff;
+    }
+    #fishButton {
+      margin-top: 50px;
+      padding: 20px 40px;
+      font-size: 24px;
+      background: url('https://example.com/fish.png')  no-repeat center center;
+      background-size: contain;
+      border: none;
+      cursor: pointer;
+    }
+    #score {
+      font-size: 32px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🐟 Рыбный Кликер</h1>
+  <button id="fishButton"></button>
+  <div id="score">Поймано рыб: 0</div>
+
+  <!-- Подключите Telegram Web App SDK -->
+  <script src="https://telegram.org/js/telegram-web-app.js"></script> 
+  <script>
+    let score = 0;
+    const button = document.getElementById("fishButton");
+    const scoreDisplay = document.getElementById("score");
+
+    button.addEventListener("click", () => {
+      score++;
+      scoreDisplay.textContent = `Поймано рыб: ${score}`;
+    });
+
+    // Опционально: отправка результата обратно боту
+    Telegram.WebApp.onEvent("mainButtonClicked", () => {
+      Telegram.WebApp.sendData(`{"score": ${score}}`);
+    });
+  </script>
+</body>
+</html>
